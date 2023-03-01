@@ -1,0 +1,26 @@
+
+html,
+body{
+	height: 100%;
+}
+
+body{
+	display:         flex;
+	align-items:     center;
+	justify-content: center;
+	background:      var(--S1_1);
+	color:           var(--S1_7);
+}
+
+*{
+	user-select: none;
+}
+
+.MachineControls{
+	padding: 3rem;
+}
+
+button{
+	margin: 0.5rem;
+	width:  5.5rem;
+}

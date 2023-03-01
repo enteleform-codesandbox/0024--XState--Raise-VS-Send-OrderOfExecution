@@ -1,0 +1,10 @@
+{
+
+	"verbose":     false,
+	"restartable": true,
+
+	"events": {
+		"start": "node -e console.clear();"
+	}
+
+}

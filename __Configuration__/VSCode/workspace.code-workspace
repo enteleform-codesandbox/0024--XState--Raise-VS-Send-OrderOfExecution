@@ -1,0 +1,109 @@
+{
+
+//####################################################################################################################//
+//##>  Folders                                                                                                      ##//
+//####################################################################################################################//
+
+	"folders": [
+		{"name":"___  ROOT  ___________________",  "path":"../../"                  },
+		{"name":"___  CONFIG  _________________",  "path":"../../__Configuration__/"},
+		{"name":"___  SRC  _____________________", "path":"../../src/"              },
+	],
+
+
+//####################################################################################################################//
+//##>  Settings                                                                                                     ##//
+//####################################################################################################################//
+
+	"settings": {
+		"window.title": "XState--Raise-VS-Send-OrderOfExecution",
+
+		"editor.tabSize":           2,
+		"editor.insertSpaces":      false,
+		"editor.detectIndentation": false,
+		"terminal.integrated.cwd":  "${workspaceFolder:___  ROOT  ___________________}",
+
+		"files.exclude": {
+			"__Configuration__":  true,
+			"src":                true,
+			"pnpm-lock.yaml":     true,
+		},
+
+		"search.exclude": {
+			"__Configuration__":  true,
+			"src":                true,
+			"pnpm-lock.yaml":     true,
+		}
+	},
+
+
+//####################################################################################################################//
+//##>  Tasks                                                                                                        ##//
+//####################################################################################################################//
+
+	"tasks": {
+		"version": "2.0.0",
+
+		"tasks": [
+
+			{"label":"Install Dependencies", "command":"pnpm install",       "type":"shell", "promptOnClose":true, "presentation":{"panel":"dedicated", "reveal":"always", "showReuseMessage":false}},
+
+			{"label":"Dev",                  "command":"npm run dev",        "type":"shell", "promptOnClose":true, "presentation":{"panel":"dedicated", "reveal":"always", "showReuseMessage":false}},
+			{"label":"Build",                "command":"npm run build",      "type":"shell", "promptOnClose":true, "presentation":{"panel":"dedicated", "reveal":"always", "showReuseMessage":false}},
+			{"label":"Start",                "command":"npm run start",      "type":"shell", "promptOnClose":true, "presentation":{"panel":"dedicated", "reveal":"always", "showReuseMessage":false}},
+		],
+	},
+
+
+//####################################################################################################################//
+//##>  Debug                                                                                                        ##//
+//####################################################################################################################//
+
+	"launch": {
+		"version": "0.2.0",
+
+		"configurations": [
+
+			//--------------------------------------------------------------------------------------------------------------//
+			//  REPL                                                                                                       //
+			//--------------------------------------------------------------------------------------------------------------//
+			{
+				"name":"REPL", "type":"node", "request":"launch",
+
+				"cwd":                    "${workspaceFolder:___  ROOT  ___________________}",
+				"outputCapture":          "std",
+				"internalConsoleOptions": "openOnSessionStart",
+
+				"runtimeArgs": [
+					"--nolazy",
+					"--inspect",
+					"--loader",  "ts-node/esm",
+					"--require", "tsconfig-paths/register",
+				],
+				"args": [
+					"./src/__REPL__.ts",
+				],
+				"env": {
+					"ExecutionContext": "REPL",
+				},
+				"skipFiles": [
+					"<node_internals>/**/*.js",
+					"**/node_modules/**/*",
+				],
+			},
+
+
+			//--------------------------------------------------------------------------------------------------------------//
+			//  Chrome                                                                                                      //
+			//--------------------------------------------------------------------------------------------------------------//
+			{
+				"name":"Chrome", "type":"chrome", "request":"launch",
+
+				"url":                    "http://localhost:8080",
+				"internalConsoleOptions": "openOnSessionStart",
+			},
+
+		],
+	},
+
+}
