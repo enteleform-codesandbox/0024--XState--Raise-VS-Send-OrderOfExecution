@@ -21,7 +21,7 @@ import {
 //##>  Setup                                                                                                        ##//
 //####################################################################################################################//
 
-	const use_ExplicitNavigation = true
+	const use_ExplicitNavigation = false
 
 
 //####################################################################################################################//
@@ -73,8 +73,7 @@ import {
 			id:      `ModeMachine.${id}`,
 			initial: "Root",
 
-			predictableActionArguments: true,
-			preserveActionOrder:        true,
+			preserveActionOrder: true,
 
 			context: {
 				_path: ["Root"],
@@ -200,8 +199,8 @@ import {
 			actions: {
 				Pop_Path: assign(({_path}) => ({_path:_path.slice(0, (_path.length - 1))})),
 
-				Log_InvalidEvent ({_path}, event){console.log(JSON.stringify({id, "@":"!!! INVALID_EVENT !!!", event:event.type, path:_path}))},
-				Log_ModePersisted({_path}, event){console.log(JSON.stringify({id, "@":"MODE_PERSISTED",        event:event.type, path:_path}))},
+				Log_InvalidEvent ({_path}, {type}, {state:{value}}){console.log(JSON.stringify({id, "@":"!!! INVALID_EVENT !!!", event:type, state:value, _path}))},
+				Log_ModePersisted({_path}, {type}, {state:{value}}){console.log(JSON.stringify({id, "@":"MODE_PERSISTED",        event:type, state:value, _path}))},
 			},
 
 		})
@@ -228,8 +227,8 @@ import {
 		{id,        to       }:
 		{id:string, to:string}
 	){
-		return (({_path}:Context, event:Event) => {
-			console.log(JSON.stringify({id, "@":"ENTRY", to, event:event.type, path:_path}))
+		return (({_path}:Context, {type}:Event, {state:{value}}:any) => {
+			console.log(JSON.stringify({id, "@":"ENTRY", to, event:type, state:value, _path}))
 			log_Delimiter()
 		})
 	}
@@ -238,7 +237,9 @@ import {
 		{id,        from,        to       }:
 		{id:string, from:string, to:string}
 	){
-		return (({_path}:Context, event:Event) => {console.log(JSON.stringify({id, "@":"TRANSITION", from, to, event:event.type, path:_path}))})
+		return (({_path}:Context, {type}:Event, {state:{value}}:any) => {
+			console.log(JSON.stringify({id, "@":"TRANSITION", from, to, event:type, state:value, _path}))
+		})
 	}
 
 	const log_Delimiter = debounce(() => {
