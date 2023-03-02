@@ -65,18 +65,6 @@ import {send, raise         } from "xstate"
 			<div class="MachineControls">
 
 				<div class="Row">
-					<h2>{`${eventMode}.EnsuredEvents`}</h2>
-					<For each={modes}>{(mode) => (
-						<Button
-							colorScheme = {state.matches(mode) ? "success" : "primary"}
-							onClick     = {() => {send(EnsuredEvent(mode))}           }
-						>
-							{EnsuredEvent(mode)}
-						</Button>
-					)}</For>
-				</div>
-
-				<div class="Row">
 					<h2>{`${eventMode}.ActualEvents`}</h2>
 					<For each={modes}>{(mode) => (
 						<Button
